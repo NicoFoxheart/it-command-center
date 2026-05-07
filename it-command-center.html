@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Command Center - System Operations Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #0f1420;
+  --bg-card: #141b2d;
+  --accent-cyan: #00f0ff;
+  --accent-purple: #a855f7;
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+  --accent-yellow: #fbbf24;
+  --text-primary: #e2e8f0;
+  --text-secondary: #64748b;
+  --border: rgba(0, 240, 255, 0.2);
+  --glow: rgba(0, 240, 255, 0.4);
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ANIMATED BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(0, 240, 255, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 0 20px var(--glow);
+  animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--accent-green);
+  border-radius: 20px;
+  font-weight: 600;
+  color: var(--accent-green);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* GRID LAYOUT */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* CARDS */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+  to { left: 100%; }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-cyan);
+}
+
+.card-icon {
+  font-size: 20px;
+  opacity: 0.6;
+}
+
+/* METRICS */
+.metric-large {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* PROGRESS BARS */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 4px;
+  transition: width 1s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  to { left: 100%; }
+}
+
+/* STATS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.stat-item {
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-cyan);
+}
+
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* SERVER LIST */
+.server-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.server-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.server-item.online { border-left-color: var(--accent-green); }
+.server-item.warning { border-left-color: var(--accent-yellow); }
+.server-item.offline { border-left-color: var(--accent-red); }
+
+.server-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.server-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.online {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-green);
+}
+
+.status-badge.warning {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--accent-yellow);
+}
+
+.status-badge.offline {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--accent-red);
+}
+
+/* ALERTS */
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.alert-item {
+  padding: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid var(--accent-red);
+  border-radius: 6px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.alert-time {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.alert-message {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* CHARTS */
+.chart-container {
+  height: 200px;
+  position: relative;
+  margin-top: 16px;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  gap: 4px;
+}
+
+.chart-bar {
+  flex: 1;
+  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  transition: all 0.5s ease;
+  animation: barGrow 1s ease-out backwards;
+}
+
+.chart-bar:hover {
+  opacity: 0.8;
+  transform: scaleY(1.05);
+}
+
+@keyframes barGrow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* GAUGE */
+.gauge-container {
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.gauge-circle {
+  transform: rotate(-90deg);
+}
+
+.gauge-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 20;
+}
+
+.gauge-fill {
+  fill: none;
+  stroke: url(#gaugeGradient);
+  stroke-width: 20;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+.gauge-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* RESPONSIVE GRID SIZES */
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+.span-6 { grid-column: span 6; }
+.span-8 { grid-column: span 8; }
+.span-12 { grid-column: span 12; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-cyan);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-purple);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .span-3, .span-4 { grid-column: span 6; }
+  .span-8 { grid-column: span 12; }
+}
+
+@media (max-width: 768px) {
+  .span-3, .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
+  .stats-grid { grid-template-columns: 1fr; }
+  header { flex-direction: column; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">Command Center</div>
+    </div>
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      <span>All Systems Operational</span>
+    </div>
+  </header>
+
+  <div class="dashboard-grid">
+    
+    <!-- CPU USAGE -->
+    <div class="card span-3">
+      <div class="card-header">
+        <div class="card-title">CPU Usage</div>
+        <div class="card-icon">🖥️</div>
+      </div>
+      <div class="metric-large" id="cpuValue">0%</div>
+      <div class="metric-label">Current Load</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="cpuBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- MEMORY -->
+    <div class="card span-3">
+      <div class="card-header">
+        <div class="card-title">Memory</div>
+        <div class="card-icon">💾</div>
+      </div>
+      <div class="metric-large" id="memValue">0%</div>
+      <div class="metric-label">16 GB Total</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="memBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- DISK I/O -->
+    <div class="card span-3">
+      <div class="card-header">
+        <div class="card-title">Disk I/O</div>
+        <div class="card-icon">💿</div>
+      </div>
+      <div class="metric-large" id="diskValue">0%</div>
+      <div class="metric-label">Read/Write</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="diskBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- NETWORK -->
+    <div class="card span-3">
+      <div class="card-header">
+        <div class="card-title">Network</div>
+        <div class="card-icon">📡</div>
+      </div>
+      <div class="metric-large" id="netValue">0 MB/s</div>
+      <div class="metric-label">Bandwidth</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="netBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- SERVER STATUS -->
+    <div class="card span-4">
+      <div class="card-header">
+        <div class="card-title">Server Status</div>
+        <div class="card-icon">🌐</div>
+      </div>
+      <div class="server-list" id="serverList"></div>
+    </div>
+
+    <!-- SECURITY ALERTS -->
+    <div class="card span-4">
+      <div class="card-header">
+        <div class="card-title">Security Alerts</div>
+        <div class="card-icon">🛡️</div>
+      </div>
+      <div class="alert-list" id="alertList"></div>
+    </div>
+
+    <!-- SYSTEM HEALTH GAUGE -->
+    <div class="card span-4">
+      <div class="card-header">
+        <div class="card-title">System Health</div>
+        <div class="card-icon">❤️</div>
+      </div>
+      <div class="gauge-container">
+        <svg class="gauge-circle" width="200" height="200">
+          <defs>
+            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <circle class="gauge-bg" cx="100" cy="100" r="80"></circle>
+          <circle class="gauge-fill" id="gaugeCircle" cx="100" cy="100" r="80" 
+                  stroke-dasharray="502.4" stroke-dashoffset="502.4"></circle>
+        </svg>
+        <div class="gauge-value" id="gaugeValue">0%</div>
+      </div>
+    </div>
+
+    <!-- NETWORK TRAFFIC CHART -->
+    <div class="card span-8">
+      <div class="card-header">
+        <div class="card-title">Network Traffic (Last 24h)</div>
+        <div class="card-icon">📊</div>
+      </div>
+      <div class="chart-container">
+        <div class="chart-bars" id="networkChart"></div>
+      </div>
+    </div>
+
+    <!-- SYSTEM STATS -->
+    <div class="card span-4">
+      <div class="card-header">
+        <div class="card-title">System Stats</div>
+        <div class="card-icon">📈</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value" id="uptime">0d</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="processes">0</div>
+          <div class="stat-label">Processes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="connections">0</div>
+          <div class="stat-label">Connections</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="requests">0</div>
+          <div class="stat-label">Requests/min</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// SIMULATE REAL-TIME DATA
+function randomValue(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function updateMetrics() {
+  // CPU
+  const cpu = randomValue(20, 85);
+  document.getElementById('cpuValue').textContent = cpu + '%';
+  document.getElementById('cpuBar').style.width = cpu + '%';
+
+  // Memory
+  const mem = randomValue(40, 75);
+  document.getElementById('memValue').textContent = mem + '%';
+  document.getElementById('memBar').style.width = mem + '%';
+
+  // Disk
+  const disk = randomValue(10, 60);
+  document.getElementById('diskValue').textContent = disk + '%';
+  document.getElementById('diskBar').style.width = disk + '%';
+
+  // Network
+  const net = randomValue(50, 250);
+  document.getElementById('netValue').textContent = net + ' MB/s';
+  document.getElementById('netBar').style.width = Math.min((net / 250) * 100, 100) + '%';
+
+  // System Health Gauge
+  const health = Math.round((100 - cpu * 0.4 - mem * 0.3 - disk * 0.3));
+  const circumference = 2 * Math.PI * 80;
+  const offset = circumference - (health / 100) * circumference;
+  document.getElementById('gaugeCircle').style.strokeDashoffset = offset;
+  document.getElementById('gaugeValue').textContent = health + '%';
+
+  // Stats
+  document.getElementById('uptime').textContent = randomValue(1, 365) + 'd';
+  document.getElementById('processes').textContent = randomValue(100, 450);
+  document.getElementById('connections').textContent = randomValue(50, 200);
+  document.getElementById('requests').textContent = randomValue(500, 2500);
+}
+
+// SERVERS
+const servers = [
+  { name: 'Web Server 01', status: 'online' },
+  { name: 'Database 01', status: 'online' },
+  { name: 'API Gateway', status: 'online' },
+  { name: 'Cache Server', status: 'warning' },
+  { name: 'Backup Server', status: 'online' },
+];
+
+function renderServers() {
+  const html = servers.map(server => `
+    <div class="server-item ${server.status}">
+      <div class="server-name">${server.name}</div>
+      <div class="server-status">
+        <span class="status-badge ${server.status}">${server.status}</span>
+        <span>${randomValue(1, 999)}ms</span>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('serverList').innerHTML = html;
+}
+
+// ALERTS
+const alertMessages = [
+  'High CPU usage detected on Web Server 01',
+  'Failed login attempt from IP 192.168.1.45',
+  'SSL certificate expires in 14 days',
+  'Unusual network traffic pattern detected',
+  'Low disk space on Backup Server (<10%)',
+];
+
+function addAlert() {
+  const time = new Date().toLocaleTimeString();
+  const message = alertMessages[randomValue(0, alertMessages.length - 1)];
+  const alertHtml = `
+    <div class="alert-item">
+      <div class="alert-time">${time}</div>
+      <div class="alert-message">${message}</div>
+    </div>
+  `;
+  const list = document.getElementById('alertList');
+  list.insertAdjacentHTML('afterbegin', alertHtml);
+  if (list.children.length > 5) list.lastChild.remove();
+}
+
+// NETWORK CHART
+function renderChart() {
+  const bars = [];
+  for (let i = 0; i < 24; i++) {
+    const height = randomValue(30, 100);
+    bars.push(`<div class="chart-bar" style="height: ${height}%; animation-delay: ${i * 0.05}s;"></div>`);
+  }
+  document.getElementById('networkChart').innerHTML = bars.join('');
+}
+
+// INIT
+updateMetrics();
+renderServers();
+renderChart();
+addAlert();
+
+// UPDATE INTERVALS
+setInterval(updateMetrics, 3000);
+setInterval(() => {
+  servers[randomValue(0, servers.length - 1)].status = ['online', 'warning'][randomValue(0, 1)];
+  renderServers();
+}, 5000);
+setInterval(addAlert, 8000);
+</script>
+
+</body>
+</html>
