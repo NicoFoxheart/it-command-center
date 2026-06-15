@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IT Command Center - System Operations Dashboard</title>
+<title>Digital Safety Hub - Phishing Teacher & Privacy Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -455,6 +455,379 @@ header {
 .span-8 { grid-column: span 8; }
 .span-12 { grid-column: span 12; }
 
+/* NAVIGATION TABS */
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.nav-tab {
+  padding: 16px 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.nav-tab:hover {
+  color: var(--accent-cyan);
+}
+
+.nav-tab.active {
+  color: var(--accent-cyan);
+}
+
+.nav-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.quick-exit-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  transition: all 0.3s;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.quick-exit-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+}
+
+/* MODULE CONTENT */
+.module-section {
+  display: none;
+}
+
+.module-section.active {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* PHISHING CARDS */
+.phishing-example {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.phishing-example:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.phishing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.phishing-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent-cyan);
+}
+
+.phishing-difficulty {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.difficulty-easy {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-green);
+}
+
+.difficulty-medium {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--accent-yellow);
+}
+
+.difficulty-hard {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--accent-red);
+}
+
+.phishing-content {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  overflow-x: auto;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.phishing-content.email {
+  border-left: 4px solid var(--accent-cyan);
+}
+
+.red-flags {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 4px solid var(--accent-red);
+  border-radius: 8px;
+}
+
+.red-flags h4 {
+  color: var(--accent-red);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.red-flags ul {
+  list-style: none;
+  padding: 0;
+}
+
+.red-flags li {
+  padding: 6px 0;
+  font-size: 13px;
+  display: flex;
+  gap: 8px;
+}
+
+.red-flags li::before {
+  content: '⚠️';
+  flex-shrink: 0;
+}
+
+/* QUIZ */
+.quiz-card {
+  background: var(--bg-card);
+  border: 2px solid var(--accent-purple);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px 0;
+}
+
+.quiz-question {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--accent-purple);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.quiz-option:hover {
+  border-color: var(--accent-purple);
+  background: rgba(168, 85, 247, 0.1);
+}
+
+.quiz-option.selected {
+  border-color: var(--accent-purple);
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.quiz-option.correct {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.quiz-option.incorrect {
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.quiz-feedback {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  display: none;
+}
+
+.quiz-feedback.show {
+  display: block;
+}
+
+.quiz-feedback.correct {
+  background: rgba(16, 185, 129, 0.2);
+  border-left: 4px solid var(--accent-green);
+  color: var(--accent-green);
+}
+
+.quiz-feedback.incorrect {
+  background: rgba(239, 68, 68, 0.2);
+  border-left: 4px solid var(--accent-red);
+  color: var(--accent-red);
+}
+
+/* PRIVACY CHECKLIST */
+.checklist-section {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.checklist-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.checklist-item:hover {
+  background: rgba(0, 240, 255, 0.1);
+}
+
+.checklist-item input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--accent-cyan);
+}
+
+.checklist-item label {
+  flex: 1;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.checklist-item.completed label {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.checklist-progress {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* HAVEN RESOURCES */
+.resource-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all 0.3s;
+}
+
+.resource-card:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.resource-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.resource-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+.resource-icon {
+  font-size: 24px;
+}
+
+.resource-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.resource-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--accent-cyan);
+  border-radius: 6px;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.resource-link:hover {
+  background: rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
 /* SCROLLBAR */
 ::-webkit-scrollbar {
   width: 8px;
@@ -491,258 +864,604 @@ header {
 <div class="container">
   <header>
     <div class="logo">
-      <div class="logo-icon">⚡</div>
-      <div class="logo-text">Command Center</div>
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">Digital Safety Hub</div>
     </div>
     <div class="status-pill">
       <div class="status-dot"></div>
-      <span>All Systems Operational</span>
+      <span>Learn & Stay Protected</span>
     </div>
   </header>
 
-  <div class="dashboard-grid">
-    
-    <!-- CPU USAGE -->
-    <div class="card span-3">
-      <div class="card-header">
-        <div class="card-title">CPU Usage</div>
-        <div class="card-icon">🖥️</div>
-      </div>
-      <div class="metric-large" id="cpuValue">0%</div>
-      <div class="metric-label">Current Load</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="cpuBar" style="width: 0%"></div>
-      </div>
-    </div>
-
-    <!-- MEMORY -->
-    <div class="card span-3">
-      <div class="card-header">
-        <div class="card-title">Memory</div>
-        <div class="card-icon">💾</div>
-      </div>
-      <div class="metric-large" id="memValue">0%</div>
-      <div class="metric-label">16 GB Total</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="memBar" style="width: 0%"></div>
-      </div>
-    </div>
-
-    <!-- DISK I/O -->
-    <div class="card span-3">
-      <div class="card-header">
-        <div class="card-title">Disk I/O</div>
-        <div class="card-icon">💿</div>
-      </div>
-      <div class="metric-large" id="diskValue">0%</div>
-      <div class="metric-label">Read/Write</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="diskBar" style="width: 0%"></div>
-      </div>
-    </div>
-
-    <!-- NETWORK -->
-    <div class="card span-3">
-      <div class="card-header">
-        <div class="card-title">Network</div>
-        <div class="card-icon">📡</div>
-      </div>
-      <div class="metric-large" id="netValue">0 MB/s</div>
-      <div class="metric-label">Bandwidth</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="netBar" style="width: 0%"></div>
-      </div>
-    </div>
-
-    <!-- SERVER STATUS -->
-    <div class="card span-4">
-      <div class="card-header">
-        <div class="card-title">Server Status</div>
-        <div class="card-icon">🌐</div>
-      </div>
-      <div class="server-list" id="serverList"></div>
-    </div>
-
-    <!-- SECURITY ALERTS -->
-    <div class="card span-4">
-      <div class="card-header">
-        <div class="card-title">Security Alerts</div>
-        <div class="card-icon">🛡️</div>
-      </div>
-      <div class="alert-list" id="alertList"></div>
-    </div>
-
-    <!-- SYSTEM HEALTH GAUGE -->
-    <div class="card span-4">
-      <div class="card-header">
-        <div class="card-title">System Health</div>
-        <div class="card-icon">❤️</div>
-      </div>
-      <div class="gauge-container">
-        <svg class="gauge-circle" width="200" height="200">
-          <defs>
-            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
-              <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
-            </linearGradient>
-          </defs>
-          <circle class="gauge-bg" cx="100" cy="100" r="80"></circle>
-          <circle class="gauge-fill" id="gaugeCircle" cx="100" cy="100" r="80" 
-                  stroke-dasharray="502.4" stroke-dashoffset="502.4"></circle>
-        </svg>
-        <div class="gauge-value" id="gaugeValue">0%</div>
-      </div>
-    </div>
-
-    <!-- NETWORK TRAFFIC CHART -->
-    <div class="card span-8">
-      <div class="card-header">
-        <div class="card-title">Network Traffic (Last 24h)</div>
-        <div class="card-icon">📊</div>
-      </div>
-      <div class="chart-container">
-        <div class="chart-bars" id="networkChart"></div>
-      </div>
-    </div>
-
-    <!-- SYSTEM STATS -->
-    <div class="card span-4">
-      <div class="card-header">
-        <div class="card-title">System Stats</div>
-        <div class="card-icon">📈</div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-value" id="uptime">0d</div>
-          <div class="stat-label">Uptime</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" id="processes">0</div>
-          <div class="stat-label">Processes</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" id="connections">0</div>
-          <div class="stat-label">Connections</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" id="requests">0</div>
-          <div class="stat-label">Requests/min</div>
-        </div>
-      </div>
-    </div>
-
+  <!-- NAVIGATION TABS -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-module="phishing">🎣 Phishing Teacher</button>
+    <button class="nav-tab" data-module="privacy">🔐 Privacy Kit</button>
+    <button class="nav-tab" data-module="haven">❤️ Haven Safety</button>
   </div>
+
+  <!-- PHISHING TEACHER MODULE -->
+  <div id="phishing" class="module-section active">
+    <div class="dashboard-grid">
+      <div class="card span-12">
+        <div class="card-header">
+          <div class="card-title">🎣 Phishing Teacher - Learn to Spot Scams</div>
+          <div class="card-icon">📧</div>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 14px;">
+          Phishing attacks exploit trusted relationships to steal your credentials and personal data. 
+          Learn to identify red flags before you fall victim.
+        </p>
+      </div>
+
+      <!-- PHISHING EXAMPLE 1 -->
+      <div class="card span-6">
+        <div class="phishing-header">
+          <div class="phishing-title">Amazon Account Verification</div>
+          <span class="phishing-difficulty difficulty-medium">Medium</span>
+        </div>
+        <div class="phishing-content email">
+From: account-verify@amazon-security.com
+Subject: Your Amazon Account Needs Immediate Attention
+
+Dear Valued Customer,
+
+We've detected unusual activity on your account. Click below to verify your identity immediately or your account will be suspended.
+
+[VERIFY YOUR ACCOUNT] &lt;-- SUSPICIOUS LINK
+        </div>
+        <div class="red-flags">
+          <h4>Red Flags 🚩</h4>
+          <ul>
+            <li>Generic greeting ("Dear Valued Customer")</li>
+            <li>Urgency & threat ("immediately" / "suspended")</li>
+            <li>Unusual sender domain (not @amazon.com)</li>
+            <li>Clickable link instead of directing to official site</li>
+            <li>No specific account details or order reference</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PHISHING EXAMPLE 2 -->
+      <div class="card span-6">
+        <div class="phishing-header">
+          <div class="phishing-title">PayPal Security Alert</div>
+          <span class="phishing-difficulty difficulty-hard">Hard</span>
+        </div>
+        <div class="phishing-content email">
+From: billing@paypal.com
+Subject: Action Required: Payment Method Update
+
+Hi Sarah,
+
+Your payment method on file will expire soon. To continue uninterrupted service, update your billing info here.
+
+[UPDATE PAYMENT] &lt;-- Looks official but...
+
+Questions? Reply to this email.
+        </div>
+        <div class="red-flags">
+          <h4>Red Flags 🚩</h4>
+          <ul>
+            <li>Urgent action needed language</li>
+            <li>Generic greeting (should use your name)</li>
+            <li>Official-looking domain (could be spoofed)</li>
+            <li>Asks you to click link vs. directing to official site</li>
+            <li>Creates artificial scarcity ("expire soon")</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TEXT MESSAGE PHISHING -->
+      <div class="card span-6">
+        <div class="phishing-header">
+          <div class="phishing-title">SMS Phishing (Smishing)</div>
+          <span class="phishing-difficulty difficulty-easy">Easy</span>
+        </div>
+        <div class="phishing-content email">
+From: +1 (234) 567-8901
+
+Hi! UPS tried to deliver your package. Confirm your address here: 
+short-url-link.com/upstracking
+        </div>
+        <div class="red-flags">
+          <h4>Red Flags 🚩</h4>
+          <li>You weren't expecting a package</li>
+          <li>Shortened URL (hides real destination)</li>
+          <li>Request for personal info via text</li>
+          <li>Official companies don't text you links like this</li>
+          <li>Unusual phone number format</li>
+        </div>
+      </div>
+
+      <!-- PHISHING EXAMPLE 3 -->
+      <div class="card span-6">
+        <div class="phishing-header">
+          <div class="phishing-title">Bank Account Locked</div>
+          <span class="phishing-difficulty difficulty-medium">Medium</span>
+        </div>
+        <div class="phishing-content email">
+From: security@yourbank.net
+Subject: URGENT: Account Locked
+
+Your account has been locked due to suspicious login attempts. 
+Verify your identity with SSN, DOB, and mother's maiden name:
+
+[UNLOCK ACCOUNT NOW]
+        </div>
+        <div class="red-flags">
+          <h4>Red Flags 🚩</h4>
+          <li>Real banks never ask for SSN or full DOB via email</li>
+          <li>ALL CAPS urgency language</li>
+          <li>Suspicious sender domain (.net, not official bank domain)</li>
+          <li>Requests sensitive personal data</li>
+          <li>Artificial urgency ("URGENT")</li>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHISHING QUIZ -->
+    <div class="dashboard-grid" style="margin-top: 40px;">
+      <div class="card span-12">
+        <div class="card-header">
+          <div class="card-title">🎯 Test Yourself: Phishing Quiz</div>
+        </div>
+      </div>
+
+      <div class="card span-12">
+        <div class="quiz-card">
+          <div class="quiz-question">Question 1: Which is a red flag in a phishing email?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Uses your full name and specific account details</div>
+            <div class="quiz-option" onclick="checkAnswer(this, true)">Generic greeting like "Dear Customer"</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Links to the official company website</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Provides clear contact information</div>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-card">
+          <div class="quiz-question">Question 2: What should you do if you receive a suspicious email?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Click the link to verify it's real</div>
+            <div class="quiz-option" onclick="checkAnswer(this, true)">Report it and delete it without clicking links</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Reply asking for more information</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Share it with friends as a warning</div>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-card">
+          <div class="quiz-question">Question 3: Banks will often ask you to verify this information via email:</div>
+          <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(this, true)">Never - legitimate banks never ask for SSN or passwords via email</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Your full SSN and PIN</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)">Your mother's maiden name and DOB</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)">All of the above for verification</div>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIVACY STARTER KIT MODULE -->
+  <div id="privacy" class="module-section">
+    <div class="dashboard-grid">
+      <div class="card span-12">
+        <div class="card-header">
+          <div class="card-title">🔐 Privacy Starter Kit - Lock Down Your Digital Life</div>
+          <div class="card-icon">🔒</div>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 14px;">
+          Most people don't know where to start with privacy. This guide walks you through the essentials for your phone, social media, and accounts.
+        </p>
+      </div>
+
+      <!-- PHONE SECURITY -->
+      <div class="card span-6">
+        <div class="checklist-section">
+          <div class="checklist-title">📱 Secure Your Phone</div>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="phone-1">
+              <label for="phone-1">Enable strong PIN/Face ID/Fingerprint lock</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="phone-2">
+              <label for="phone-2">Turn on automatic lock (5-15 minutes)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="phone-3">
+              <label for="phone-3">Enable biometric + PIN (not just one)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="phone-4">
+              <label for="phone-4">Turn on automatic updates for OS & apps</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="phone-5">
+              <label for="phone-5">Disable location history</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="phone-6">
+              <label for="phone-6">Review & limit app permissions (Settings → Apps)</label>
+            </div>
+          </div>
+          <div class="checklist-progress">✅ 0/6 completed</div>
+        </div>
+      </div>
+
+      <!-- ACCOUNT SECURITY -->
+      <div class="card span-6">
+        <div class="checklist-section">
+          <div class="checklist-title">🔑 Strengthen Your Accounts</div>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="account-1">
+              <label for="account-1">Use unique, strong passwords (16+ chars, mixed types)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="account-2">
+              <label for="account-2">Enable Two-Factor Authentication (2FA) on all important accounts</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="account-3">
+              <label for="account-3">Use a password manager (Bitwarden, 1Password, LastPass)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="account-4">
+              <label for="account-4">Review connected apps & revoke unused access</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="account-5">
+              <label for="account-5">Set up recovery email & phone number</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="account-6">
+              <label for="account-6">Review login activity for suspicious locations</label>
+            </div>
+          </div>
+          <div class="checklist-progress">✅ 0/6 completed</div>
+        </div>
+      </div>
+
+      <!-- SOCIAL MEDIA PRIVACY -->
+      <div class="card span-6">
+        <div class="checklist-section">
+          <div class="checklist-title">👥 Social Media Privacy</div>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="social-1">
+              <label for="social-1">Set all profiles to private (not public)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="social-2">
+              <label for="social-2">Review & limit who can see your posts</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="social-3">
+              <label for="social-3">Turn off location tagging</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="social-4">
+              <label for="social-4">Review tagged photos before they appear</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="social-5">
+              <label for="social-5">Disable face recognition (if available)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="social-6">
+              <label for="social-6">Limit ad tracking & data collection</label>
+            </div>
+          </div>
+          <div class="checklist-progress">✅ 0/6 completed</div>
+        </div>
+      </div>
+
+      <!-- EMAIL SECURITY -->
+      <div class="card span-6">
+        <div class="checklist-section">
+          <div class="checklist-title">📧 Email Security Essentials</div>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="email-1">
+              <label for="email-1">Enable 2FA on your email account (most important!)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="email-2">
+              <label for="email-2">Review connected apps that access your email</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="email-3">
+              <label for="email-3">Set up forwarding recovery to backup email</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="email-4">
+              <label for="email-4">Check active sessions & sign out unknown devices</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="email-5">
+              <label for="email-5">Enable security alerts for suspicious activity</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="email-6">
+              <label for="email-6">Review Gmail security score at myaccount.google.com</label>
+            </div>
+          </div>
+          <div class="checklist-progress">✅ 0/6 completed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAVEN DIGITAL SAFETY MODULE -->
+  <div id="haven" class="module-section">
+    <div class="dashboard-grid">
+      <div class="card span-12">
+        <div class="card-header">
+          <div class="card-title">❤️ Haven - Digital Safety for At-Risk Individuals</div>
+          <div class="card-icon">🛡️</div>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 14px;">
+          <strong>⚠️ Content Warning:</strong> This section addresses online safety for people in unsafe situations, including domestic violence, stalking, and harassment. 
+          If you're in immediate danger, please contact local emergency services (911 in the US).
+        </p>
+      </div>
+
+      <!-- CRISIS RESOURCES -->
+      <div class="card span-4">
+        <div class="resource-card">
+          <div class="resource-header">
+            <div class="resource-title">National Domestic Violence Hotline</div>
+            <div class="resource-icon">☎️</div>
+          </div>
+          <div class="resource-description">
+            24/7 confidential support. They also have online chat if calling isn't safe.
+          </div>
+          <div style="font-weight: 700; color: var(--accent-red); margin-bottom: 10px;">1-800-799-7233</div>
+          <a href="#" class="resource-link">Visit thehotline.org</a>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="resource-card">
+          <div class="resource-header">
+            <div class="resource-title">Crisis Text Line</div>
+            <div class="resource-icon">💬</div>
+          </div>
+          <div class="resource-description">
+            Text-based crisis support. Discreet and available 24/7.
+          </div>
+          <div style="font-weight: 700; color: var(--accent-purple); margin-bottom: 10px;">Text HOME to 741741</div>
+          <a href="#" class="resource-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="resource-card">
+          <div class="resource-header">
+            <div class="resource-title">Cyberstalking & Harassment Help</div>
+            <div class="resource-icon">⚠️</div>
+          </div>
+          <div class="resource-description">
+            Legal resources and reporting options for online abuse.
+          </div>
+          <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 10px;">Report to platforms & law enforcement</div>
+          <a href="#" class="resource-link">File a report</a>
+        </div>
+      </div>
+
+      <!-- PRIVACY TIPS FOR AT-RISK PEOPLE -->
+      <div class="card span-6">
+        <div class="checklist-section">
+          <div class="checklist-title">🔐 Digital Privacy Essentials (At-Risk)</div>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-1">
+              <label for="haven-1"><strong>Create a safe email</strong> - Use a new, private email abuser doesn't know about</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-2">
+              <label for="haven-2"><strong>Use a VPN</strong> - Hide your location and IP address (ProtonVPN, Mullvad)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-3">
+              <label for="haven-3"><strong>Turn off location</strong> - Disable all location sharing everywhere</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-4">
+              <label for="haven-4"><strong>Use private browser</strong> - Use Tor Browser or incognito for sensitive searches</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-5">
+              <label for="haven-5"><strong>Cover webcam</strong> - Use physical tape or slider</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-6">
+              <label for="haven-6"><strong>Check connected devices</strong> - Regularly audit who has access to your accounts</label>
+            </div>
+          </div>
+          <div class="checklist-progress">✅ 0/6 completed</div>
+        </div>
+      </div>
+
+      <!-- SMART PHONE PRACTICES -->
+      <div class="card span-6">
+        <div class="checklist-section">
+          <div class="checklist-title">📱 Smart Phone Habits</div>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-7">
+              <label for="haven-7"><strong>Burner phone</strong> - Consider a separate phone for safety communications</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-8">
+              <label for="haven-8"><strong>Two-Factor Auth</strong> - Enable 2FA on all accounts (SMS or app-based)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-9">
+              <label for="haven-9"><strong>Disable cloud sync</strong> - Turn off iCloud/Google Photos auto-upload</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-10">
+              <label for="haven-10"><strong>Use secure messaging</strong> - Signal or Telegram for private chats</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-11">
+              <label for="haven-11"><strong>Review app permissions</strong> - Remove access to camera, location, contacts</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-12">
+              <label for="haven-12"><strong>Hide sensitive apps</strong> - Use app folders or built-in hiding features</label>
+            </div>
+          </div>
+          <div class="checklist-progress">✅ 0/6 completed</div>
+        </div>
+      </div>
+
+      <!-- WHAT TO DO IF COMPROMISED -->
+      <div class="card span-12">
+        <div class="checklist-section">
+          <div class="checklist-title">⚡ If You Think You've Been Hacked or Compromised</div>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-1">
+              <label for="haven-crisis-1"><strong>1. Get to a safe device</strong> - Use a computer you know isn't compromised (friend's, library, shelter)</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-2">
+              <label for="haven-crisis-2"><strong>2. Change passwords</strong> - From the safe device, change all important passwords</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-3">
+              <label for="haven-crisis-3"><strong>3. Check recovery options</strong> - Ensure recovery email & phone are current & not compromised</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-4">
+              <label for="haven-crisis-4"><strong>4. Enable 2FA</strong> - Add Two-Factor Authentication to accounts if not already enabled</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-5">
+              <label for="haven-crisis-5"><strong>5. Review activity logs</strong> - Check for unauthorized access on Gmail, iCloud, etc.</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-6">
+              <label for="haven-crisis-6"><strong>6. Consider factory reset</strong> - Reset your phone/computer as a last resort</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-7">
+              <label for="haven-crisis-7"><strong>7. Report to authorities</strong> - File a report with local police if this is harassment/stalking</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="haven-crisis-8">
+              <label for="haven-crisis-8"><strong>8. Tell someone you trust</strong> - Reach out to a domestic violence org, counselor, or friend</label>
+            </div>
+          </div>
+          <div class="checklist-progress">✅ 0/8 completed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
+<!-- QUICK EXIT BUTTON (for Haven safety) -->
+<button class="quick-exit-btn" onclick="quickExit()">🚪 Quick Exit</button>
+
 <script>
-// SIMULATE REAL-TIME DATA
-function randomValue(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+// MODULE NAVIGATION
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const moduleId = tab.dataset.module;
+    
+    // Update active tab
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    
+    // Update active module
+    document.querySelectorAll('.module-section').forEach(m => m.classList.remove('active'));
+    document.getElementById(moduleId).classList.add('active');
+  });
+});
+
+// PHISHING QUIZ
+function checkAnswer(element, isCorrect) {
+  const quizCard = element.closest('.quiz-card');
+  const feedback = quizCard.querySelector('.quiz-feedback');
+  const options = quizCard.querySelectorAll('.quiz-option');
+  
+  // Mark options
+  options.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+  element.classList.add(isCorrect ? 'correct' : 'incorrect');
+  
+  // Show feedback
+  feedback.classList.add('show');
+  feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+  feedback.textContent = isCorrect 
+    ? '✅ Correct! Great job spotting that red flag.' 
+    : '❌ Incorrect. Review the red flags to understand why.';
+  
+  // Disable other options
+  options.forEach(opt => opt.style.pointerEvents = 'none');
 }
 
-function updateMetrics() {
-  // CPU
-  const cpu = randomValue(20, 85);
-  document.getElementById('cpuValue').textContent = cpu + '%';
-  document.getElementById('cpuBar').style.width = cpu + '%';
+// CHECKLIST PROGRESS
+document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    const section = checkbox.closest('.checklist-section');
+    const total = section.querySelectorAll('input').length;
+    const completed = section.querySelectorAll('input:checked').length;
+    const progress = section.querySelector('.checklist-progress');
+    
+    // Update label styling
+    checkbox.closest('.checklist-item').classList.toggle('completed');
+    
+    // Update progress
+    progress.textContent = `✅ ${completed}/${total} completed`;
+    
+    // Save to localStorage
+    localStorage.setItem(checkbox.id, checkbox.checked);
+  });
+});
 
-  // Memory
-  const mem = randomValue(40, 75);
-  document.getElementById('memValue').textContent = mem + '%';
-  document.getElementById('memBar').style.width = mem + '%';
-
-  // Disk
-  const disk = randomValue(10, 60);
-  document.getElementById('diskValue').textContent = disk + '%';
-  document.getElementById('diskBar').style.width = disk + '%';
-
-  // Network
-  const net = randomValue(50, 250);
-  document.getElementById('netValue').textContent = net + ' MB/s';
-  document.getElementById('netBar').style.width = Math.min((net / 250) * 100, 100) + '%';
-
-  // System Health Gauge
-  const health = Math.round((100 - cpu * 0.4 - mem * 0.3 - disk * 0.3));
-  const circumference = 2 * Math.PI * 80;
-  const offset = circumference - (health / 100) * circumference;
-  document.getElementById('gaugeCircle').style.strokeDashoffset = offset;
-  document.getElementById('gaugeValue').textContent = health + '%';
-
-  // Stats
-  document.getElementById('uptime').textContent = randomValue(1, 365) + 'd';
-  document.getElementById('processes').textContent = randomValue(100, 450);
-  document.getElementById('connections').textContent = randomValue(50, 200);
-  document.getElementById('requests').textContent = randomValue(500, 2500);
-}
-
-// SERVERS
-const servers = [
-  { name: 'Web Server 01', status: 'online' },
-  { name: 'Database 01', status: 'online' },
-  { name: 'API Gateway', status: 'online' },
-  { name: 'Cache Server', status: 'warning' },
-  { name: 'Backup Server', status: 'online' },
-];
-
-function renderServers() {
-  const html = servers.map(server => `
-    <div class="server-item ${server.status}">
-      <div class="server-name">${server.name}</div>
-      <div class="server-status">
-        <span class="status-badge ${server.status}">${server.status}</span>
-        <span>${randomValue(1, 999)}ms</span>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('serverList').innerHTML = html;
-}
-
-// ALERTS
-const alertMessages = [
-  'High CPU usage detected on Web Server 01',
-  'Failed login attempt from IP 192.168.1.45',
-  'SSL certificate expires in 14 days',
-  'Unusual network traffic pattern detected',
-  'Low disk space on Backup Server (<10%)',
-];
-
-function addAlert() {
-  const time = new Date().toLocaleTimeString();
-  const message = alertMessages[randomValue(0, alertMessages.length - 1)];
-  const alertHtml = `
-    <div class="alert-item">
-      <div class="alert-time">${time}</div>
-      <div class="alert-message">${message}</div>
-    </div>
-  `;
-  const list = document.getElementById('alertList');
-  list.insertAdjacentHTML('afterbegin', alertHtml);
-  if (list.children.length > 5) list.lastChild.remove();
-}
-
-// NETWORK CHART
-function renderChart() {
-  const bars = [];
-  for (let i = 0; i < 24; i++) {
-    const height = randomValue(30, 100);
-    bars.push(`<div class="chart-bar" style="height: ${height}%; animation-delay: ${i * 0.05}s;"></div>`);
+// LOAD CHECKLIST STATE
+document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+  const saved = localStorage.getItem(checkbox.id);
+  if (saved === 'true') {
+    checkbox.checked = true;
+    checkbox.closest('.checklist-item').classList.add('completed');
   }
-  document.getElementById('networkChart').innerHTML = bars.join('');
+});
+
+// Update progress displays on load
+document.querySelectorAll('.checklist-section').forEach(section => {
+  const total = section.querySelectorAll('input').length;
+  const completed = section.querySelectorAll('input:checked').length;
+  section.querySelector('.checklist-progress').textContent = `✅ ${completed}/${total} completed`;
+});
+
+// QUICK EXIT
+function quickExit() {
+  // Redirect to a safe, neutral site or close tab
+  const safeSites = [
+    'https://www.google.com',
+    'https://www.wikipedia.org',
+    'https://www.weather.com'
+  ];
+  const randomSite = safeSites[Math.floor(Math.random() * safeSites.length)];
+  window.location.href = randomSite;
+  // Fallback: close the tab
+  setTimeout(() => window.close(), 100);
 }
 
-// INIT
-updateMetrics();
-renderServers();
-renderChart();
-addAlert();
-
-// UPDATE INTERVALS
-setInterval(updateMetrics, 3000);
-setInterval(() => {
-  servers[randomValue(0, servers.length - 1)].status = ['online', 'warning'][randomValue(0, 1)];
-  renderServers();
-}, 5000);
-setInterval(addAlert, 8000);
+// ACCESSIBILITY: Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && confirm('Quick exit this page?')) {
+    quickExit();
+  }
+});
 </script>
 
 </body>
